@@ -1,0 +1,5 @@
+<h1>Relatório de <%= @patient.name %> em <%= @report.date %></h1>
+
+<p><%= @report.content %></p>
+
+<%= link_to 'Voltar', patient_path(@patient) %>

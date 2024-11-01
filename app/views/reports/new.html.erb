@@ -1,0 +1,17 @@
+<!-- app/views/reports/new.html.erb -->
+
+<h1>Novo Relatório para <%= @patient.name %></h1>
+
+<%= form_with model: [@patient, @report] do |f| %>
+  <div>
+    <%= f.label :date, 'Data' %>
+    <%= f.date_field :date %>
+  </div>
+  <div>
+    <%= f.label :content, 'Conteúdo' %>
+    <%= f.text_area :content %>
+  </div>
+  <div>
+    <%= f.submit 'Salvar' %>
+  </div>
+<% end %>

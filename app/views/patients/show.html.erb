@@ -1,0 +1,18 @@
+<h1>Paciente: <%= @patient.name %></h1>
+
+<%= link_to 'Novo Relatório', new_patient_report_path(@patient) %>
+
+<h2>Relatórios</h2>
+<ul>
+  <% @reports.each do |report| %>
+    <li>
+      Data: <%= report.date %> |
+      <%= link_to 'Ver Relatório', patient_report_path(@patient, report) %> |
+      <% if report.report_resume %>
+        <%= link_to 'Ver Resumo', patient_report_report_resume_path(@patient, report) %>
+      <% else %>
+        Resumo pendente
+      <% end %>
+    </li>
+  <% end %>
+</ul>

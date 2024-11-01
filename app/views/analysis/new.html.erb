@@ -1,0 +1,9 @@
+<h1>Insira o texto para gerar um resumo</h1>
+<%= form_with url: '/analysis/create_summary', method: :post, local: true do |form| %>
+  <div>
+    <%= form.label :content, "Texto para resumo" %><br>
+    <%= form.text_area :content, rows: 10, cols: 50 %>
+  </div>
+  <br>
+  <%= form.submit "Gerar Resumo" %>
+<% end %>
