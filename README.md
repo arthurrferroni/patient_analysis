@@ -124,7 +124,7 @@ Exemplo de .env:
     O sistema utiliza a API do GROQ para gerar resumos dos relatórios em background, usando o Sidekiq.
 
 
-Contato
+## Contato
 
   * Arthur Ferroni
   * Email: arthur@approachti.com.br
