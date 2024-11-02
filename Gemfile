@@ -32,6 +32,11 @@ gem 'redis'      # Necessário para o Sidekiq
 gem 'dotenv-rails' # Para carregar variáveis de ambiente
 gem 'foreman'   # Para rodar o Sidekiq e o Rails server simultaneamente
 gem 'faraday-retry' # Para realizar requisições com retry
+gem 'devise'
+gem 'acts_as_tenant'
+gem 'bigdecimal'
+gem 'mutex_m'
+
 
 
 

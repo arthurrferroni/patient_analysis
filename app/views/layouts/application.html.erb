@@ -1,3 +1,5 @@
+<!-- app/views/layouts/application.html.erb -->
+
 <!DOCTYPE html>
 <html>
   <head>
@@ -6,11 +8,40 @@
     <%= csrf_meta_tags %>
     <%= csp_meta_tag %>
 
-    <%= stylesheet_link_tag "application", "data-turbo-track": "reload" %>
-    <%= javascript_importmap_tags %>
+    <%= javascript_include_tag "application", "data-turbo-track": "reload", defer: true %>
   </head>
 
   <body>
+    <nav data-controller="navigation">
+      <div>
+        <div>
+          <div>
+            <a href="/">Autism.ia</a>
+          </div>
+          <div>
+            <% if user_signed_in? %>
+            <a href="/patients">
+              Pacientes
+            </a>
+            <a href="/patients/new">
+              Novo Paciente
+            </a>
+            <% else %>
+            <% end %>
+          </div>
+        </div>
+        <div>
+          <% if user_signed_in? %>
+            <span>Olá, <%= current_user.email %>!</span>
+            <%= button_to 'Logout', destroy_user_session_path, method: :delete, data: { confirm: 'Você tem certeza que deseja sair?' }, class: 'btn btn-danger' %>
+          <% else %>
+            <%= link_to 'Login', new_user_session_path %>
+            <%= link_to 'Cadastrar', new_user_registration_path %>
+          <% end %>
+        </div>
+      </div>
+    </nav>
+
     <%= yield %>
   </body>
 </html>
