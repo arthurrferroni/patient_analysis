@@ -1,0 +1,19 @@
+<!-- app/views/therapeutic_sessions/show.html.erb -->
+
+<h1>Detalhes da Sessão Terapêutica</h1>
+
+<p><strong>Data da Sessão:</strong> <%= l(@therapeutic_session.data_sessao) %></p>
+<p><strong>Profissional:</strong> <%= @therapeutic_session.professional.nome %></p>
+<p><strong>Clínica:</strong> <%= @therapeutic_session.clinic.nome_clinica %></p>
+<p><strong>Descrição:</strong> <%= @therapeutic_session.descricao %></p>
+<p><strong>Observações:</strong> <%= @therapeutic_session.observacoes %></p>
+
+<% if @therapeutic_session.summary.present? %>
+  <h2>Resumo Gerado</h2>
+  <p><%= @therapeutic_session.summary.content %></p>
+<% else %>
+  <p><em>O resumo desta sessão está sendo processado. Por favor, aguarde alguns momentos e atualize a página.</em></p>
+<% end %>
+
+<%= link_to 'Editar Sessão', edit_patient_therapeutic_plan_therapeutic_session_path(@patient, @therapeutic_plan, @therapeutic_session), class: 'btn btn-warning' %>
+<%= link_to 'Voltar', patient_therapeutic_plan_therapeutic_sessions_path(@patient, @therapeutic_plan), class: 'btn btn-secondary' %>

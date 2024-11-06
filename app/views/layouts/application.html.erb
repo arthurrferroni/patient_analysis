@@ -2,46 +2,40 @@
 
 <!DOCTYPE html>
 <html>
-  <head>
-    <title>PatientAnalysis</title>
-    <meta name="viewport" content="width=device-width,initial-scale=1">
-    <%= csrf_meta_tags %>
-    <%= csp_meta_tag %>
+<head>
+  <title>PatientAnalysis</title>
+  <%= csrf_meta_tags %>
+  <%= csp_meta_tag %>
 
-    <%= javascript_include_tag "application", "data-turbo-track": "reload", defer: true %>
-  </head>
+  <%= stylesheet_link_tag 'application', media: 'all' %>
+  <%= javascript_include_tag 'application', 'data-turbo-track': 'reload' %>
 
-  <body>
-    <nav data-controller="navigation">
-      <div>
-        <div>
-          <div>
-            <a href="/">Autism.ia</a>
-          </div>
-          <div>
-            <% if user_signed_in? %>
-            <a href="/patients">
-              Pacientes
-            </a>
-            <a href="/patients/new">
-              Novo Paciente
-            </a>
-            <% else %>
-            <% end %>
-          </div>
-        </div>
-        <div>
-          <% if user_signed_in? %>
-            <span>Olá, <%= current_user.email %>!</span>
-            <%= button_to 'Logout', destroy_user_session_path, method: :delete, data: { confirm: 'Você tem certeza que deseja sair?' }, class: 'btn btn-danger' %>
-          <% else %>
-            <%= link_to 'Login', new_user_session_path %>
-            <%= link_to 'Cadastrar', new_user_registration_path %>
-          <% end %>
-        </div>
-      </div>
-    </nav>
+</head>
 
-    <%= yield %>
-  </body>
+<body>
+  <nav>
+    <% if user_signed_in? %>
+    <%= link_to 'Home', root_path %> |
+    <%= link_to 'Pacientes', patients_path %> |
+    <%= link_to 'Clínicas', clinics_path %> |
+    <%= link_to 'Profissionais', clinics_path %> |
+    <%= link_to 'Escolas', schools_path %> |
+    <%= link_to 'Planos de Saúde', companies_path %> |
+    <%= form_with url: destroy_user_session_path, method: :delete do %>
+      <%= submit_tag 'Sair' %>
+      <% end %>
+    <% else %>
+      <%= link_to 'Entrar', new_user_session_path %>
+    <% end %>
+  </nav>
+
+  <% if notice %>
+    <p class="notice"><%= notice %></p>
+  <% end %>
+  <% if alert %>
+    <p class="alert"><%= alert %></p>
+  <% end %>
+
+  <%= yield %>
+</body>
 </html>

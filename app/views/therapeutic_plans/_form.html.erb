@@ -1,0 +1,49 @@
+<!-- app/views/therapeutic_plans/_form.html.erb -->
+
+<%= form_with(model: [@patient, @therapeutic_plan]) do |form| %>
+  <% if @therapeutic_plan.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@therapeutic_plan.errors.count, "erro") %> proibiu este plano terapêutico de ser salvo:</h2>
+
+      <ul>
+        <% @therapeutic_plan.errors.full_messages.each do |message| %>
+          <li><%= message %></li>
+        <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= form.label :data_inicio, 'Data de Início' %>
+    <%= form.date_select :data_inicio %>
+  </div>
+
+  <div class="field">
+    <%= form.label :data_fim, 'Data de Fim' %>
+    <%= form.date_select :data_fim %>
+  </div>
+
+  <div class="field">
+    <%= form.label :objetivos %>
+    <%= form.text_area :objetivos %>
+  </div>
+
+  <div class="field">
+    <%= form.label :descricao, 'Descrição' %>
+    <%= form.text_area :descricao %>
+  </div>
+
+  <div class="field">
+    <%= form.label :carga_horaria %>
+    <%= form.number_field :carga_horaria %>
+  </div>
+
+  <div class="field">
+    <%= form.label :status %>
+    <%= form.select :status, ['Em andamento', 'Concluído', 'Cancelado'] %>
+  </div>
+
+  <div class="actions">
+    <%= form.submit %>
+  </div>
+<% end %>

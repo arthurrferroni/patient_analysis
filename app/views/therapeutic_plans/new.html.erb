@@ -1,0 +1,7 @@
+<!-- app/views/therapeutic_plans/new.html.erb -->
+
+<h1>Novo Plano Terapêutico</h1>
+
+<%= render 'form', therapeutic_plan: @therapeutic_plan %>
+
+<%= link_to 'Voltar', patient_therapeutic_plans_path(@patient) %>

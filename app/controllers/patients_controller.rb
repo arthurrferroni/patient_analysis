@@ -1,22 +1,28 @@
 # app/controllers/patients_controller.rb
 
 class PatientsController < ApplicationController
-  before_action :set_patient, only: [:show, :edit, :update, :destroy]
+  before_action :authenticate_user!
+  before_action :set_patient, only: %i[show edit update destroy]
 
   def index
-    @patients = current_company.patients
+    @patients = Patient.all
+    @patients = policy_scope(Patient)
+    authorize @patients
   end
 
   def show
-    @reports = @patient.reports
+    # @patient já está definido pelo before_action
+    authorize @patient
   end
 
   def new
-    @patient = current_company.patients.new
+    @patient = Patient.new
+    authorize @patient
   end
 
   def create
-    @patient = current_company.patients.new(patient_params)
+    @patient = Patient.new(patient_params)
+    authorize @patient
     if @patient.save
       redirect_to @patient, notice: 'Paciente criado com sucesso.'
     else
@@ -25,9 +31,12 @@ class PatientsController < ApplicationController
   end
 
   def edit
+    authorize @patient
+    # @patient já está definido pelo before_action
   end
 
   def update
+    authorize @patient
     if @patient.update(patient_params)
       redirect_to @patient, notice: 'Paciente atualizado com sucesso.'
     else
@@ -36,21 +45,28 @@ class PatientsController < ApplicationController
   end
 
   def destroy
+    authorize @patient
     @patient.destroy
-    redirect_to patients_url, notice: 'Paciente excluído com sucesso.'
+    redirect_to patients_path, notice: 'Paciente excluído com sucesso.'
   end
 
   private
 
   def set_patient
-    @patient = current_company.patients.find(params[:id])
+    @patient = Patient.find(params[:id])
   end
 
   def patient_params
-    params.require(:patient).permit(:name, :other_attributes...)
-  end
-
-  def current_company
-    ActsAsTenant.current_tenant
+    params.require(:patient).permit(
+      :nome,
+      :data_nascimento,
+      :diagnostico,
+      :responsavel_principal,
+      :contato_responsavel,
+      :data_entrada,
+      :status,
+      :school_id,
+      :company_id
+    )
   end
 end

@@ -36,6 +36,9 @@ gem 'devise'
 gem 'acts_as_tenant'
 gem 'bigdecimal'
 gem 'mutex_m'
+gem 'pundit'
+gem 'rails-ujs'
+
 
 
 

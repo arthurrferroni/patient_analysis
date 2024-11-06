@@ -1,0 +1,7 @@
+<!-- app/views/therapeutic_sessions/new.html.erb -->
+
+<h1>Nova Sessão Terapêutica</h1>
+
+<%= render 'form', therapeutic_session: @therapeutic_session %>
+
+<%= link_to 'Voltar', patient_therapeutic_plan_path(@patient, @therapeutic_plan) %>

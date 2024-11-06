@@ -1,0 +1,61 @@
+<%= form_with(model: @patient) do |form| %>
+  <% if @patient.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@patient.errors.count, "erro") %> proibiu este paciente de ser salvo:</h2>
+      <ul>
+        <% @patient.errors.full_messages.each do |message| %>
+          <li><%= message %></li>
+        <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div>
+    <%= form.label :nome %><br>
+    <%= form.text_field :nome %>
+  </div>
+
+  <div>
+    <%= form.label :data_nascimento %><br>
+    <%= form.date_select :data_nascimento %>
+  </div>
+
+  <div>
+    <%= form.label :diagnostico %><br>
+    <%= form.text_field :diagnostico %>
+  </div>
+
+  <div>
+    <%= form.label :responsavel_principal %><br>
+    <%= form.text_field :responsavel_principal %>
+  </div>
+
+  <div>
+    <%= form.label :contato_responsavel %><br>
+    <%= form.text_field :contato_responsavel %>
+  </div>
+
+  <div>
+    <%= form.label :data_entrada %><br>
+    <%= form.date_select :data_entrada %>
+  </div>
+
+  <div>
+    <%= form.label :status %><br>
+    <%= form.select :status, ['Ativo', 'Inativo'] %>
+  </div>
+
+  <div>
+    <%= form.label :school_id, 'Escola' %><br>
+    <%= form.collection_select :school_id, School.all, :id, :nome_escola, prompt: 'Selecione uma Escola' %>
+  </div>
+
+  <div>
+    <%= form.label :company_id, 'Plano de Saúde' %><br>
+    <%= form.collection_select :company_id, Company.all, :id, :nome_plano, prompt: 'Selecione um Plano de Saúde' %>
+  </div>
+
+  <div>
+    <%= form.submit %>
+  </div>
+<% end %>

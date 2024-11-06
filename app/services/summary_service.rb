@@ -1,8 +1,9 @@
+
 require 'faraday/retry'
 
 class SummaryService
-  def initialize(report)
-    @report = report
+  def initialize(therapeutic_session)
+    @therapeutic_session = therapeutic_session
     @api_key = ENV['GROQ_API_KEY']
     @api_url = 'https://api.groq.com/openai/v1/chat/completions'
     @connection = Faraday.new do |conn|
@@ -16,14 +17,7 @@ class SummaryService
     response = @connection.post(@api_url) do |req|
       req.headers['Content-Type'] = 'application/json'
       req.headers['Authorization'] = "Bearer #{@api_key}"
-      req.body = {
-        model: 'llama-3.1-70b-versatile',
-        messages: [
-          { role: 'system', content: 'Resuma o seguinte relatório médico:' },
-          { role: 'user', content: @report.content }
-        ],
-        temperature: 0.7
-      }.to_json
+      req.body = request_body.to_json
     end
 
     if response.success?
@@ -33,10 +27,34 @@ class SummaryService
     end
   rescue Faraday::Error => e
     Rails.logger.error("Erro de conexão: #{e.message}")
-    # Implementar lógica de reconexão ou notificação
+    # Opcional: reencaminhar o job ou notificar o administrador
   end
 
   private
+
+  def request_body
+    {
+      model: 'llama-3.1-70b-versatile',
+      messages: [
+        { role: 'system', content: 'Você é um assistente que resume sessões terapêuticas para registros médicos.' },
+        { role: 'user', content: session_content }
+      ],
+      temperature: 0.7
+    }
+  end
+
+  def session_content
+    <<~CONTENT
+      Paciente: #{@therapeutic_session.therapeutic_plan.patient.nome}
+      Data da Sessão: #{@therapeutic_session.data_sessao}
+      Profissional: #{@therapeutic_session.professional.nome}
+      Descrição da Sessão:
+      #{@therapeutic_session.descricao}
+
+      Observações:
+      #{@therapeutic_session.observacoes}
+    CONTENT
+  end
 
   def process_response(response)
     data = JSON.parse(response.body)
@@ -44,8 +62,9 @@ class SummaryService
     tokens_used = data.dig('usage', 'total_tokens')
     total_time = response.headers['X-Processing-Time'].to_f / 1000
 
-    @report.create_report_resume(
-      content: summary,
+    # Salvar o resumo associado à sessão terapêutica
+    @therapeutic_session.create_summary(
+      content: summary.strip,
       tokens_used: tokens_used,
       total_time: total_time
     )

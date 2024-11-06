@@ -1,18 +1,26 @@
-<h1>Paciente: <%= @patient.name %></h1>
+<h1>Detalhes do Paciente</h1>
 
-<%= link_to 'Novo Relatório', new_patient_report_path(@patient) %>
+<p><strong>Nome:</strong> <%= @patient.nome %></p>
+<p><strong>Data de Nascimento:</strong> <%= l(@patient.data_nascimento) %></p>
+<p><strong>Diagnóstico:</strong> <%= @patient.diagnostico %></p>
+<p><strong>Responsável:</strong> <%= @patient.responsavel_principal %></p>
+<p><strong>Contato do Responsável:</strong> <%= @patient.contato_responsavel %></p>
+<p><strong>Data de Entrada:</strong> <%= l(@patient.data_entrada) %></p>
+<p><strong>Status:</strong> <%= @patient.status %></p>
+<p><strong>Escola:</strong> <%= @patient.school&.nome_escola %></p>
+<p><strong>Plano de Saúde:</strong> <%= @patient.company&.nome_plano %></p>
 
-<h2>Relatórios</h2>
+<h2>Ações</h2>
+<%= link_to 'Editar', edit_patient_path(@patient) %> |
+<%= link_to 'Voltar', patients_path %>
+
+<h2>Planos Terapêuticos</h2>
+<%= link_to 'Novo Plano Terapêutico', new_patient_therapeutic_plan_path(@patient) %>
+
 <ul>
-  <% @reports.each do |report| %>
+  <% @patient.therapeutic_plans.each do |plan| %>
     <li>
-      Data: <%= report.date %> |
-      <%= link_to 'Ver Relatório', patient_report_path(@patient, report) %> |
-      <% if report.report_resume %>
-        <%= link_to 'Ver Resumo', patient_report_report_resume_path(@patient, report) %>
-      <% else %>
-        Resumo pendente
-      <% end %>
+      <%= link_to plan.objetivos, patient_therapeutic_plan_path(@patient, plan) %> - Status: <%= plan.status %>
     </li>
   <% end %>
 </ul>

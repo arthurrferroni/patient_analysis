@@ -1,0 +1,29 @@
+<!-- app/views/therapeutic_sessions/index.html.erb -->
+
+<h1>Sessões Terapêuticas</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th>Data da Sessão</th>
+      <th>Profissional</th>
+      <th>Clínica</th>
+      <th>Ações</th>
+    </tr>
+  </thead>
+  <tbody>
+    <% @therapeutic_sessions.each do |session| %>
+      <tr>
+        <td><%= l(session.data_sessao) %></td>
+        <td><%= session.professional.nome %></td>
+        <td><%= session.clinic.nome_clinica %></td>
+        <td>
+          <%= link_to 'Ver', [@patient, @therapeutic_plan, session], class: 'btn btn-primary' %>
+        </td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<%= link_to 'Nova Sessão Terapêutica', new_patient_therapeutic_plan_therapeutic_session_path(@patient, @therapeutic_plan), class: 'btn btn-success' %>
+<%= link_to 'Voltar', patient_therapeutic_plans_path(@patient), class: 'btn btn-secondary' %>

@@ -2,10 +2,27 @@
 
 <%= link_to 'Novo Paciente', new_patient_path %>
 
-<ul>
-  <% @patients.each do |patient| %>
-    <li>
-      <%= link_to patient.name, patient_path(patient) %>
-    </li>
-  <% end %>
-</ul>
+<table>
+  <thead>
+    <tr>
+      <th>Nome</th>
+      <th>Data de Nascimento</th>
+      <th>Diagnóstico</th>
+      <th>Ações</th>
+    </tr>
+  </thead>
+  <tbody>
+    <% @patients.each do |patient| %>
+      <tr>
+        <td><%= patient.nome %></td>
+        <td><%= l(patient.data_nascimento) %></td>
+        <td><%= patient.diagnostico %></td>
+        <td>
+          <%= link_to 'Ver', patient_path(patient) %> |
+          <%= link_to 'Editar', edit_patient_path(patient) %> |
+          <%= link_to 'Excluir', patient_path(patient), method: :delete, data: { confirm: 'Tem certeza?' } %>
+        </td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>

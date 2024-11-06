@@ -175,6 +175,8 @@ GEM
     public_suffix (6.0.1)
     puma (5.6.9)
       nio4r (~> 2.0)
+    pundit (2.4.0)
+      activesupport (>= 3.0.0)
     racc (1.8.1)
     rack (2.2.10)
     rack-test (2.1.0)
@@ -200,6 +202,8 @@ GEM
     rails-html-sanitizer (1.6.0)
       loofah (~> 2.21)
       nokogiri (~> 1.14)
+    rails-ujs (0.1.0)
+      railties (>= 3.1)
     railties (7.0.8.6)
       actionpack (= 7.0.8.6)
       activesupport (= 7.0.8.6)
@@ -290,7 +294,9 @@ DEPENDENCIES
   mutex_m
   pg (~> 1.1)
   puma (~> 5.0)
+  pundit
   rails (~> 7.0.8, >= 7.0.8.4)
+  rails-ujs
   redis
   selenium-webdriver
   sidekiq

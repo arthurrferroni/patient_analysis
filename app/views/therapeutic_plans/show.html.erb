@@ -1,0 +1,24 @@
+<!-- app/views/therapeutic_plans/show.html.erb -->
+
+<h1>Detalhes do Plano Terapêutico</h1>
+
+<p><strong>Data de Início:</strong> <%= l(@therapeutic_plan.data_inicio) %></p>
+
+<p><strong>Objetivos:</strong> <%= @therapeutic_plan.objetivos %></p>
+<p><strong>Descrição:</strong> <%= @therapeutic_plan.descricao %></p>
+<p><strong>Carga Horária:</strong> <%= @therapeutic_plan.carga_horaria %> horas</p>
+<p><strong>Status:</strong> <%= @therapeutic_plan.status %></p>
+
+<h2>Sessões Terapêuticas</h2>
+<%= link_to 'Nova Sessão Terapêutica', new_patient_therapeutic_plan_therapeutic_session_path(@patient, @therapeutic_plan) %>
+
+<ul>
+  <% @therapeutic_plan.therapeutic_sessions.each do |session| %>
+    <li>
+      <%= link_to l(session.data_sessao), patient_therapeutic_plan_therapeutic_session_path(@patient, @therapeutic_plan, session) %> - <%= session.descricao %>
+    </li>
+  <% end %>
+</ul>
+
+<%= link_to 'Editar Plano', edit_patient_therapeutic_plan_path(@patient, @therapeutic_plan) %> |
+<%= link_to 'Voltar', patient_therapeutic_plans_path(@patient) %>

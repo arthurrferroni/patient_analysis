@@ -1,0 +1,28 @@
+<h1>Pacientes</h1>
+
+<%= link_to 'Nova Clinica', new_patient_path %>
+
+<table>
+  <thead>
+    <tr>
+      <th>Nome</th>
+      <th>Endereço</th>
+      <th>Responsável</th>
+      <th>Ações</th>
+    </tr>
+  </thead>
+  <tbody>
+    <% @clinics.each do |clinic| %>
+      <tr>
+        <td><%= clinic.nome_clinica %></td>
+        <td><%= clinic.endereco %></td>
+        <td><%= clinic.responsavel_clinica %></td>
+        <td>
+          <%= link_to 'Ver', clinic_path(clinic) %> |
+          <%= link_to 'Editar', edit_clinic_path(clinic) %> |
+          <%= link_to 'Excluir', clinic_path(clinic), method: :delete, data: { confirm: 'Tem certeza?' } %>
+        </td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>

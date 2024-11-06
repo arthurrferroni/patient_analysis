@@ -1,0 +1,44 @@
+<!-- app/views/therapeutic_sessions/_form.html.erb -->
+
+<%= form_with(model: [@patient, @therapeutic_plan, @therapeutic_session]) do |form| %>
+  <% if @therapeutic_session.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@therapeutic_session.errors.count, "erro") %> proibiu esta sessão de ser salva:</h2>
+
+      <ul>
+        <% @therapeutic_session.errors.full_messages.each do |message| %>
+          <li><%= message %></li>
+        <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= form.label :professional_id, 'Profissional' %><br>
+    <%= form.collection_select :professional_id, Professional.all, :id, :nome, prompt: 'Selecione um Profissional' %>
+  </div>
+
+  <div class="field">
+    <%= form.label :clinic_id, 'Clínica' %><br>
+    <%= form.collection_select :clinic_id, Clinic.all, :id, :nome_clinica, prompt: 'Selecione uma Clínica' %>
+  </div>
+
+  <div class="field">
+    <%= form.label :data_sessao, 'Data da Sessão' %><br>
+    <%= form.date_select :data_sessao %>
+  </div>
+
+  <div class="field">
+    <%= form.label :descricao, 'Descrição' %><br>
+    <%= form.text_area :descricao %>
+  </div>
+
+  <div class="field">
+    <%= form.label :observacoes, 'Observações' %><br>
+    <%= form.text_area :observacoes %>
+  </div>
+
+  <div class="actions">
+    <%= form.submit %>
+  </div>
+<% end %>
