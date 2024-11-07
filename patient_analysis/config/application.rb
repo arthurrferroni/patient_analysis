@@ -17,6 +17,11 @@ module PatientAnalysis
     config.autoload_lib(ignore: %w[assets tasks])
     config.autoload_paths << Rails.root.join('lib')
     config.eager_load_paths << Rails.root.join('lib')
+    config.active_job.queue_adapter = :sidekiq
+
+    config.middleware.use ActionDispatch::Cookies
+    config.middleware.use ActionDispatch::Session::CookieStore, key: '_your_app_session'
+
 
     # Configuration for the application, engines, and railties goes here.
     #

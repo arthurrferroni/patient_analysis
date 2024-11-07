@@ -1,4 +1,12 @@
+require 'sidekiq/web'
+
+Sidekiq::Web.use Rack::Auth::Basic do |username, password|
+  # Carrega as credenciais das variáveis de ambiente
+  username == ENV.fetch("SIDEKIQ_ADMIN_USER") && password == ENV.fetch("SIDEKIQ_ADMIN_PASSWORD")
+end
+
 Rails.application.routes.draw do
+  mount Sidekiq::Web => '/sidekiq' # Painel administrativo do Sidekiq protegido com autenticação
   mount Rswag::Ui::Engine => '/api-docs'
   mount Rswag::Api::Engine => '/api-docs'
   namespace :api do
