@@ -1,6 +1,6 @@
 require "test_helper"
 
-class AutismiumTest < ActiveSupport::TestCase
+class AutismiaTest < ActiveSupport::TestCase
   # test "the truth" do
   #   assert true
   # end
