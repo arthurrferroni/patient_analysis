@@ -28,7 +28,7 @@ class Api::V1::BeneficiarioController < ApplicationController
         render json: @beneficiario.errors, status: :unprocessable_entity
       end
     else
-      render json: { message: "Beneficiário não está ativo" }, status: :unprocessable_entity
+      render json: { success: false, message: I18n.t('errors.messages.beneficiary.inactive') }, status: :unprocessable_entity
     end
   end
 
@@ -47,6 +47,6 @@ end
 
 def beneficiario_is_ativo
   if @beneficiario.status != "Ativo"
-    render json: { message: "Beneficiário não está ativo" }, status: :unprocessable_entity
+    render json: { success: false, message: I18n.t('errors.messages.beneficiary.inactive') }, status: :unprocessable_entity
   end
 end

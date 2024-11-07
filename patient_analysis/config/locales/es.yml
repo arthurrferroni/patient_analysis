@@ -27,18 +27,8 @@
 #       "yes": yup
 #       enabled: "ON"
 
-en:
+es:
   hello: "Hello world"
   errors:
     messages:
       unprocessable_entity: "Unprocessable entity"
-      beneficiary:
-        inactive: "Beneficiary is inactive"
-        not_found: "Beneficiary not found"
-        not_found_with_id: "Beneficiary with ID %{id} not found"
-        not_found_with_cpf: "Beneficiary with CPF %{cpf} not found"
-        not_found_with_cns: "Beneficiary with CNS %{cns} not found"
-        not_found_with_name: "Beneficiary with name %{name} not found"
-        not_found_with_birth_date: "Beneficiary with birth date %{birth_date} not found"
-        not_found_with_mother_name: "Beneficiary with mother name %{mother_name} not found"
-        not_found_with_father_name: "Beneficiary with father name %{father_name} not found"
