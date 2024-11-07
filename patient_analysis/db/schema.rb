@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.2].define(version: 2024_11_07_025754) do
+ActiveRecord::Schema[7.2].define(version: 2024_11_07_150345) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -191,7 +191,10 @@ ActiveRecord::Schema[7.2].define(version: 2024_11_07_025754) do
     t.string "password_digest", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.string "nome", null: false
+    t.integer "tipo_de_usuario", null: false
     t.index ["email"], name: "index_users_on_email", unique: true
+    t.index ["tipo_de_usuario"], name: "index_users_on_tipo_de_usuario"
   end
 
   add_foreign_key "auditoria", "beneficiarios"
