@@ -41,6 +41,7 @@ group :development, :test do
 end
 
 
+gem 'dotenv-rails'
 
 gem "jwt", "~> 2.9"
 
